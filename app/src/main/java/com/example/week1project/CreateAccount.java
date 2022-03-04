@@ -2,6 +2,7 @@ package com.example.week1project;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +34,8 @@ public class CreateAccount extends AppCompatActivity {
     private String inputConfirm;
     private TextView confirmCheck;
     private boolean validMatch;
-    private Button next;
+    private ImageButton next;
+    private Button back;
 
     private static final String emailValidation = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String passwordValidation = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
@@ -49,13 +52,20 @@ public class CreateAccount extends AppCompatActivity {
         confirm = findViewById(R.id.etConfirm);
         confirmCheck = findViewById(R.id.tvConfirmCheck);
         next = findViewById(R.id.btnNext);
+        back = findViewById(R.id.btnBack);
 
         validEmail = false;
         validPassword = false;
         validMatch = false;
         next.setEnabled(false);
 
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateAccount.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,6 +92,7 @@ public class CreateAccount extends AppCompatActivity {
 
                     if (currentEntry.equals(inputEmail)) {
                         emailCheck.setText("Email already exists");
+                        emailCheck.setTextColor(Color.RED);
                         emailExists = true;
                         next.setEnabled(false);
                     }
@@ -90,10 +101,13 @@ public class CreateAccount extends AppCompatActivity {
                 if (!emailExists) {
                     if (!emailMatcher.matches()) {
                         emailCheck.setText("Invalid email");
+                        emailCheck.setTextColor(Color.RED);
                         validEmail = false;
                         next.setEnabled(false);
-                    } else {
+                    }
+                    else {
                         emailCheck.setText("Valid email");
+                        emailCheck.setTextColor(Color.GREEN);
                         validEmail = true;
 
                         if (validPassword && validMatch) {
@@ -118,19 +132,40 @@ public class CreateAccount extends AppCompatActivity {
 
             public void afterTextChanged(Editable s) {
                 inputPassword = password.getText().toString();
+                inputConfirm = confirm.getText().toString();
                 Pattern emailPattern = Pattern.compile(passwordValidation);
                 Matcher emailMatcher = emailPattern.matcher(inputPassword);
 
                 if (!emailMatcher.matches()) {
                     passwordCheck.setText("Invalid password");
+                    passwordCheck.setTextColor(Color.RED);
                     validPassword = false;
                     next.setEnabled(false);
                 }
                 else {
                     passwordCheck.setText("Valid password");
+                    passwordCheck.setTextColor(Color.GREEN);
                     validPassword = true;
 
                     if (validEmail && validMatch) {
+                        next.setEnabled(true);
+                    }
+                    else {
+                        next.setEnabled(false);
+                    }
+                }
+
+                if (!inputConfirm.equals(inputPassword)) {
+                    confirmCheck.setText("Passwords do not match");
+                    confirmCheck.setTextColor(Color.RED);
+                    next.setEnabled(false);
+                }
+                else {
+                    confirmCheck.setText("Passwords match");
+                    confirmCheck.setTextColor(Color.GREEN);
+                    validMatch = true;
+
+                    if (validEmail && validPassword) {
                         next.setEnabled(true);
                     }
                     else {
@@ -154,11 +189,13 @@ public class CreateAccount extends AppCompatActivity {
 
                 if (!inputConfirm.equals(inputPassword)) {
                     confirmCheck.setText("Passwords do not match");
+                    confirmCheck.setTextColor(Color.RED);
                     next.setEnabled(false);
                 }
                 else {
-                    validMatch = true;
                     confirmCheck.setText("Passwords match");
+                    confirmCheck.setTextColor(Color.GREEN);
+                    validMatch = true;
 
                     if (validEmail && validPassword) {
                         next.setEnabled(true);

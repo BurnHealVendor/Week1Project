@@ -9,12 +9,13 @@
     tools:visibility="visible">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans_500"
         android:text="Create an Account"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,15 +31,17 @@
         android:text="&lt;"
         android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/tvCreateAccount"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <TextView
+        android:id="@+id/tvEmailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans_300"
         android:text="Email"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -70,7 +73,7 @@
         android:id="@+id/tvEmailCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:fontFamily="@font/museosans_300"
         android:textColor="#F44336"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,9 +84,10 @@
         app:layout_constraintVertical_bias="0.001" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvPasswordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans_300"
         android:text="Password"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -115,7 +119,7 @@
         android:id="@+id/tvPasswordCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:fontFamily="@font/museosans_300"
         android:textColor="#F44336"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,9 +130,10 @@
         app:layout_constraintVertical_bias="0.001" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvConfirmText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans_300"
         android:text="Confirm Password"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -160,7 +165,7 @@
         android:id="@+id/tvConfirmCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:fontFamily="@font/museosans_300"
         android:textColor="#F44336"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -171,9 +176,10 @@
         app:layout_constraintVertical_bias="0.001" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:id="@+id/tvParameters"
+        android:layout_width="340dp"
+        android:layout_height="80dp"
+        android:fontFamily="@font/museosans_300"
         android:text="Password must be at least 8 characters and contain one number, one lowercase letter, and one uppercase letter"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
@@ -181,20 +187,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#4CAF50"
-        android:text="Create Account"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:src="@drawable/gradient_button_background"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintVertical_bias="0.95" />
 
+    <TextView
+        android:id="@+id/tvBtnText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/museosans_500"
+        android:text="Next"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="@+id/btnNext"
+        app:layout_constraintStart_toStartOf="@+id/btnNext"
+        app:layout_constraintTop_toTopOf="@+id/btnNext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
