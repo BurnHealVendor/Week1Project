@@ -58,6 +58,7 @@ public class CreateAccount extends AppCompatActivity {
         validPassword = false;
         validMatch = false;
         next.setEnabled(false);
+        next.setColorFilter(Color.argb(100, 20, 20, 20));
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +96,7 @@ public class CreateAccount extends AppCompatActivity {
                         emailCheck.setTextColor(Color.RED);
                         emailExists = true;
                         next.setEnabled(false);
+                        next.setColorFilter(Color.argb(100, 20, 20, 20));
                     }
                 }
 
@@ -104,6 +106,7 @@ public class CreateAccount extends AppCompatActivity {
                         emailCheck.setTextColor(Color.RED);
                         validEmail = false;
                         next.setEnabled(false);
+                        next.setColorFilter(Color.argb(100, 20, 20, 20));
                     }
                     else {
                         emailCheck.setText("Valid email");
@@ -112,9 +115,11 @@ public class CreateAccount extends AppCompatActivity {
 
                         if (validPassword && validMatch) {
                             next.setEnabled(true);
+                            next.clearColorFilter();
                         }
                         else {
                             next.setEnabled(false);
+                            next.setColorFilter(Color.argb(100, 20, 20, 20));
                         }
                     }
                 }
@@ -141,6 +146,7 @@ public class CreateAccount extends AppCompatActivity {
                     passwordCheck.setTextColor(Color.RED);
                     validPassword = false;
                     next.setEnabled(false);
+                    next.setColorFilter(Color.argb(100, 20, 20, 20));
                 }
                 else {
                     passwordCheck.setText("Valid password");
@@ -149,9 +155,11 @@ public class CreateAccount extends AppCompatActivity {
 
                     if (validEmail && validMatch) {
                         next.setEnabled(true);
+                        next.clearColorFilter();
                     }
                     else {
                         next.setEnabled(false);
+                        next.setColorFilter(Color.argb(100, 20, 20, 20));
                     }
                 }
 
@@ -159,6 +167,7 @@ public class CreateAccount extends AppCompatActivity {
                     confirmCheck.setText("Passwords do not match");
                     confirmCheck.setTextColor(Color.RED);
                     next.setEnabled(false);
+                    next.setColorFilter(Color.argb(100, 20, 20, 20));
                 }
                 else {
                     confirmCheck.setText("Passwords match");
@@ -167,9 +176,11 @@ public class CreateAccount extends AppCompatActivity {
 
                     if (validEmail && validPassword) {
                         next.setEnabled(true);
+                        next.setColorFilter(null);
                     }
                     else {
                         next.setEnabled(false);
+                        next.setColorFilter(Color.argb(100, 20, 20, 20));
                     }
                 }
             }
@@ -191,6 +202,7 @@ public class CreateAccount extends AppCompatActivity {
                     confirmCheck.setText("Passwords do not match");
                     confirmCheck.setTextColor(Color.RED);
                     next.setEnabled(false);
+                    next.setColorFilter(Color.argb(100, 20, 20, 20));
                 }
                 else {
                     confirmCheck.setText("Passwords match");
@@ -199,9 +211,11 @@ public class CreateAccount extends AppCompatActivity {
 
                     if (validEmail && validPassword) {
                         next.setEnabled(true);
+                        next.setColorFilter(null);
                     }
                     else {
                         next.setEnabled(false);
+                        next.setColorFilter(Color.argb(100, 20, 20, 20));
                     }
                 }
             }
