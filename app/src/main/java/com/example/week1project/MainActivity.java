@@ -25,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
         createAccount = findViewById(R.id.btnCreate);
 
         createAccount.setOnClickListener(new View.OnClickListener() {
+
+            // Lets avoid the use of 'this' for the context
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CreateAccount.class);
+                Intent intent = new Intent(getBaseContext(), CreateAccount.class);
                         startActivity(intent);
             }
         });
