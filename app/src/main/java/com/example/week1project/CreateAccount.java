@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CreateAccount extends AppCompatActivity {
+
     private EditText email;
     private TextView emailCheck;
     private boolean validEmail;
@@ -36,6 +37,8 @@ public class CreateAccount extends AppCompatActivity {
     private boolean validMatch;
     private ImageButton next;
     private Button back;
+
+    private SharedPreferences prefs;
 
     private static final String emailValidation = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String passwordValidation = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
@@ -60,11 +63,23 @@ public class CreateAccount extends AppCompatActivity {
         next.setEnabled(false);
         next.setColorFilter(Color.argb(100, 20, 20, 20));
 
+        SharedPreferences prefs = getSharedPreferences("shared_prefs", MODE_PRIVATE);
+
+        // here we can set any email stored before
+        String emailSaved = prefs.getString("email", null);
+        if (emailSaved != null) {
+            email.setText(emailSaved);
+        }
+
         back.setOnClickListener(new View.OnClickListener() {
+
+            // here for the back button we can just call on back pressed
+            // it will call the last activity in the backstack
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateAccount.this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
+//                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+//                startActivity(intent);
             }
         });
 
@@ -78,26 +93,37 @@ public class CreateAccount extends AppCompatActivity {
             }
 
             public void afterTextChanged(Editable s) {
-                String currentEntry;
+                String currentEntry = prefs.getString("email", null);
                 emailExists = false;
 
                 inputEmail = email.getText().toString();
                 Pattern emailPattern = Pattern.compile(emailValidation);
                 Matcher emailMatcher = emailPattern.matcher(inputEmail);
 
-                SharedPreferences prefs = getSharedPreferences("shared_prefs", MODE_PRIVATE);
-                Map<String, ?> allEntries = prefs.getAll();
+                // You can have a global variable to access shared preferences
 
-                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                    currentEntry = entry.getValue().toString();
+                //Map<String, ?> allEntries = prefs.getAll();
 
-                    if (currentEntry.equals(inputEmail)) {
-                        emailCheck.setText("Email already exists");
-                        emailCheck.setTextColor(Color.RED);
-                        emailExists = true;
-                        next.setEnabled(false);
-                        next.setColorFilter(Color.argb(100, 20, 20, 20));
-                    }
+                // good check for the email, but you can get the value with the key
+
+//                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+//                    currentEntry = entry.getValue().toString();
+//
+//                    if (currentEntry.equals(inputEmail)) {
+//                        emailCheck.setText("Email already exists");
+//                        emailCheck.setTextColor(Color.RED);
+//                        emailExists = true;
+//                        next.setEnabled(false);
+//                        next.setColorFilter(Color.argb(100, 20, 20, 20));
+//                    }
+//                }
+
+                if (currentEntry != null && currentEntry.equals(inputEmail)) {
+                    emailCheck.setText("Email already exists");
+                    emailCheck.setTextColor(Color.RED);
+                    emailExists = true;
+                    next.setEnabled(false);
+                    next.setColorFilter(Color.argb(100, 20, 20, 20));
                 }
 
                 if (!emailExists) {
@@ -224,12 +250,19 @@ public class CreateAccount extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences prefs = getSharedPreferences("shared_prefs", MODE_PRIVATE);
                 SharedPreferences.Editor prefEditor = prefs.edit();
                 prefEditor.putString("email", inputEmail);
-                prefEditor.commit();
-                Toast.makeText(CreateAccount.this, "Account created", Toast.LENGTH_SHORT).show();
+                prefEditor.apply();
+                Toast.makeText(getBaseContext(), "Account created", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /**
+     * Remember to use the resume callback to add all your app logic instead of on create
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
